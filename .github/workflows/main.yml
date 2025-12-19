@@ -1,0 +1,38 @@
+name: Python CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout code
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MERATOKEN }}
+
+      # 2. Set up Python
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      # 3. Install dependencies
+      - run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. Configure Git with token
+      - run: |
+          git config user.name "houchiangliu"
+          git config user.email "houchiangliu@gmail.com"
+          git remote set-url origin https://x-access-token:${{ secrets.MERATOKEN }}@github.com/houchiangliu/sigma.git
+
+      # 5. Push deployment branch
+      - run: |
+          git branch -D deployment-branch || true
+          git checkout -b deployment-branch
+          git push -f origin deployment-branch
+        shell: bash
