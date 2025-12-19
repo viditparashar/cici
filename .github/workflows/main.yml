@@ -12,7 +12,7 @@ jobs:
       # 1. Checkout code
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.MERATOKEN }}
+          token: ${{ secrets.MERITOKIN }}
 
       # 2. Set up Python
       - uses: actions/setup-python@v2
@@ -26,9 +26,9 @@ jobs:
 
       # 4. Configure Git with token
       - run: |
-          git config user.name "houchiangliu"
-          git config user.email "houchiangliu@gmail.com"
-          git remote set-url origin https://x-access-token:${{ secrets.MERATOKEN }}@github.com/houchiangliu/sigma.git
+          git config user.name "viditparashar"
+          git config user.email "md.ieeecs@gmail.com"
+          git remote set-url origin https://x-access-token:${{ secrets.MERITOKEN }}@github.com/viditparashar/sigma.git
 
       # 5. Push deployment branch
       - run: |
